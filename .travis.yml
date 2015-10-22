@@ -10,6 +10,7 @@ services:
   
 before_install:
  - docker --version
+ - docker login --username=$U --password=$P --email=$E
  
-install: ./gradlew clean build dockerBuild
+install: ./gradlew clean build dockerBuild dockerPush -i
   

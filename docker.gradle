@@ -1,0 +1,18 @@
+ext {
+    dockerName = "tyurikov/heroes-rest:latest"
+    
+    executeCommand = { command ->
+        logger.info("::Execute [$command]")
+        def process = command.execute()
+        process.waitFor()
+        logger.debug(process.getText())
+    }
+}
+
+task dockerBuild(dependsOn: assemble) << { 
+    executeCommand("docker build -t $dockerName -f $buildDir/resources/main/docker/Dockerfile $buildDir") 
+}
+
+task dockerPush(dependsOn: dockerBuild) << {
+    executeCommand("docker push $dockerName")
+}

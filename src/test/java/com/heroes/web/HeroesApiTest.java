@@ -20,7 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @SpringApplicationConfiguration(classes = Starter.class)
 public class HeroesApiTest extends AbstractTestNGSpringContextTests
 {
-    private static final String PING_URL = "http://localhost:8080/api/ping";
+    private static final String PING_URL = "http://localhost:8080/api/v1/ping";
     private static final RestTemplate restTemplate = new RestTemplate();
 
     @Test

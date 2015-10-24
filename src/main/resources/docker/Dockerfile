@@ -1,4 +1,4 @@
-FROM tyurikov/centos-jdk:latest
+FROM tyurikov/centos-java8:latest
 MAINTAINER "Stanislav Tyurikov"
 
 # add jar

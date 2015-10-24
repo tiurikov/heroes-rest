@@ -1,15 +1,8 @@
 package com.heroes.web;
 
-import com.heroes.Starter;
 import com.heroes.model.Hero;
-import com.heroes.model.HeroRepository;
 import java.util.Set;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static com.heroes.utils.PredefinedHeroes.BATMAN;
@@ -31,21 +24,8 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
  *
  * @author Stanislav Tyurikov
  */
-@WebIntegrationTest
-@SpringApplicationConfiguration(classes = Starter.class)
-public class HeroesApiTest extends AbstractTestNGSpringContextTests
+public class HeroesApiTest extends AbstractSystemTestBase
 {
-    @Autowired
-    private HeroRepository heroRepository;
-
-
-    @BeforeMethod
-    protected void cleanup()
-    {
-        heroRepository.deleteAll();
-    }
-
-
     @Test
     public void createHero()
     {
@@ -123,13 +103,17 @@ public class HeroesApiTest extends AbstractTestNGSpringContextTests
 
 
     @Test
-    public void chackAllianсe()
+    public void checkAllianсeExists()
     {
         put("/heroes/batman", BATMAN);
         put("/heroes/robin", BATMAN);
+        
         assertThat(getStatus("/heroes/batman/allies/robin"), is(NOT_FOUND));
+        assertThat(getStatus("/heroes/robin/allies/batman"), is(NOT_FOUND));
 
         put("/heroes/batman/allies/robin");
+        
         assertThat(getStatus("/heroes/batman/allies/robin"), is(NO_CONTENT));
+        assertThat(getStatus("/heroes/robin/allies/batman"), is(NO_CONTENT));
     }
 }

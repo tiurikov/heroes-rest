@@ -3,6 +3,7 @@ package com.heroes.web;
 import com.heroes.model.Hero;
 import com.heroes.model.HeroRepository;
 import java.util.Set;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +36,9 @@ public class HeroesApi
 
 
     @RequestMapping(value = "/heroes/{pseudonym}", method = PUT, consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity createHero(@PathVariable("pseudonym") String pseudonym, @RequestBody Hero hero)
+    public ResponseEntity createHero(
+            @PathVariable("pseudonym") String pseudonym,
+            @Valid @RequestBody Hero hero)
     {
         heroRepository.saveHero(pseudonym, hero);
         return created(fromCurrentRequest().build().toUri()).build();
@@ -43,7 +46,8 @@ public class HeroesApi
 
 
     @RequestMapping(value = "/heroes/{pseudonym}", method = DELETE)
-    public ResponseEntity removeHero(@PathVariable("pseudonym") String pseudonym)
+    public ResponseEntity removeHero(
+            @PathVariable("pseudonym") String pseudonym)
     {
         heroRepository.removeHero(pseudonym);
         return noContent().build();
@@ -58,7 +62,8 @@ public class HeroesApi
 
 
     @RequestMapping(value = "/heroes/{pseudonym}", method = GET)
-    public ResponseEntity findHero(@PathVariable("pseudonym") String pseudonym)
+    public ResponseEntity findHero(
+            @PathVariable("pseudonym") String pseudonym)
     {
         final Hero hero = heroRepository.findHero(pseudonym);
 
@@ -71,7 +76,8 @@ public class HeroesApi
 
 
     @RequestMapping(value = "/heroes/{pseudonym}/allies", method = GET)
-    public Set<String> findAllies(@PathVariable("pseudonym") String pseudonym)
+    public Set<String> findAllies(
+            @PathVariable("pseudonym") String pseudonym)
     {
         return heroRepository.findAllies(pseudonym);
     }

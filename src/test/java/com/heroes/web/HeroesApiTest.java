@@ -116,7 +116,7 @@ public class HeroesApiTest extends AbstractTestNGSpringContextTests
         put("/heroes/batman", BATMAN);
         delete("/heroes/batman");
         assertThat(getStatus("/heroes/batman"), is(NOT_FOUND));
-        
+
         delete("/heroes/batman");
         assertThat(getStatus("/heroes/batman"), is(NOT_FOUND));
     }

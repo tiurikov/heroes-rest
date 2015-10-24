@@ -13,7 +13,8 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationConfiguration
 {
     @Bean
-    public HeroRepository heroRepository() {
+    public HeroRepository heroRepository()
+    {
         return new InMemoryHeroRepository();
     }
 }

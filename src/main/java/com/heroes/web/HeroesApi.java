@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import static com.heroes.model.HeroRepository.UNKNOWN_HERO;
 import static org.springframework.http.HttpEntity.EMPTY;
@@ -21,6 +20,7 @@ import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 /**
  *
@@ -38,17 +38,14 @@ public class HeroesApi
     public ResponseEntity createHero(@PathVariable("pseudonym") String pseudonym, @RequestBody Hero hero)
     {
         heroRepository.saveHero(pseudonym, hero);
-        return created(ServletUriComponentsBuilder.fromCurrentRequest().build().toUri()).build();
+        return created(fromCurrentRequest().build().toUri()).build();
     }
 
 
     @RequestMapping(value = "/heroes/{pseudonym}", method = DELETE)
     public ResponseEntity removeHero(@PathVariable("pseudonym") String pseudonym)
     {
-        if (!UNKNOWN_HERO.equals(heroRepository.findHero(pseudonym))) {
-            heroRepository.removeHero(pseudonym);
-        }
-
+        heroRepository.removeHero(pseudonym);
         return noContent().build();
     }
 
@@ -64,7 +61,7 @@ public class HeroesApi
     public ResponseEntity findHero(@PathVariable("pseudonym") String pseudonym)
     {
         final Hero hero = heroRepository.findHero(pseudonym);
-        
+
         if (UNKNOWN_HERO.equals(hero)) {
             return notFound().build();
         }
@@ -99,7 +96,7 @@ public class HeroesApi
             @PathVariable("pseudonymY") String pseudonymY)
     {
         heroRepository.unite(pseudonymX, pseudonymY);
-        return created(ServletUriComponentsBuilder.fromCurrentRequest().build().toUri()).build();
+        return created(fromCurrentRequest().build().toUri()).build();
     }
 
 

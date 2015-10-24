@@ -45,10 +45,10 @@ public class InMemoryHeroRepository implements HeroRepository
     @Override
     public void removeHero(String pseudonym)
     {
-        assertExists(pseudonym);
-
-        heroesIndex.remove(pseudonym);
-        allicaneGraph.removeVertex(pseudonym);
+        if (existsHero(pseudonym)) {
+            heroesIndex.remove(pseudonym);
+            allicaneGraph.removeVertex(pseudonym);
+        }
     }
 
 
@@ -105,5 +105,12 @@ public class InMemoryHeroRepository implements HeroRepository
     {
         allicaneGraph.removeAllVertices(heroesIndex.keySet());
         heroesIndex.clear();
+    }
+
+
+    @Override
+    public boolean existsHero(String pseudonym)
+    {
+        return heroesIndex.containsKey(pseudonym);
     }
 }

@@ -15,7 +15,7 @@ public class DateUtils
     {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        
+
         try {
             return dateFormat.parse(date);
         } catch (ParseException ex) {

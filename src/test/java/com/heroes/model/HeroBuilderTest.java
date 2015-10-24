@@ -17,6 +17,7 @@ public class HeroBuilderTest
     private static final String SOME_SKILL_Y = "some skill Y";
     private static final String SOME_SKILL_X = "some skill X";
 
+
     @Test
     public void createHeroInstance()
     {

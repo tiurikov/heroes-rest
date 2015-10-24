@@ -13,6 +13,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.hasSize;
 
 /**
  *
@@ -68,7 +69,7 @@ public class HeroRepositoryTest
     public void findAllHeros()
     {
         HeroRepository repository = aRepository();
-        
+
         assertThat(repository.findAllHeroes(), is(empty()));
 
         repository.saveHero(BATMAN_PSEUDONYM, BATMAN);
@@ -152,12 +153,38 @@ public class HeroRepositoryTest
     }
 
 
-    @Test(expectedExceptions = HeroRepositoryException.class,
-            expectedExceptionsMessageRegExp = UNKNOWN_HERO_BATMAN)
+    @Test
+    public void deleteHeroesAllFormRepository()
+    {
+        HeroRepository repository = aRepository();
+        repository.saveHero(BATMAN_PSEUDONYM, BATMAN);
+        repository.saveHero(ROBIN_PSEUDONYM, ROBIN);
+        repository.saveHero(SUPERMAN_PSEUDONYM, SUPERMAN);
+
+        assertThat(repository.findAllHeroes(), hasSize(3));
+
+        repository.deleteAll();
+        assertThat(repository.findAllHeroes(), hasSize(0));
+    }
+
+
+    @Test
+    public void checkHeroExistsInRepository()
+    {
+        HeroRepository repository = aRepository();
+        assertThat(repository.existsHero(BATMAN_PSEUDONYM), is(false));
+
+        repository.saveHero(BATMAN_PSEUDONYM, BATMAN);
+        assertThat(repository.existsHero(BATMAN_PSEUDONYM), is(true));
+    }
+
+
+    @Test
     public void removeUnknownHero()
     {
         HeroRepository repository = aRepository();
         repository.removeHero(BATMAN_PSEUDONYM);
+        assertThat(repository.existsHero(BATMAN_PSEUDONYM), is(false));
     }
 
 

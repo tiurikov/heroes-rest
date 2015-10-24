@@ -23,6 +23,7 @@ repositories {
 
 test {
     useTestNG()
+    testLogging.showStandardStreams = true
 }
 
 dependencies {

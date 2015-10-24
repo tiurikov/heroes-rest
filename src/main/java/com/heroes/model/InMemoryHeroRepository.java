@@ -17,6 +17,7 @@ public class InMemoryHeroRepository implements HeroRepository
     private final NeighborIndex<String, DefaultEdge> allianceIndex;
     private final ListenableUndirectedGraph<String, DefaultEdge> allicaneGraph;
 
+
     public InMemoryHeroRepository()
     {
         this.heroesIndex = new HashMap<>();
@@ -25,11 +26,13 @@ public class InMemoryHeroRepository implements HeroRepository
         this.allicaneGraph.addGraphListener(allianceIndex);
     }
 
+
     @Override
     public Hero findHero(String pseudonym)
     {
         return heroesIndex.getOrDefault(pseudonym, UNKNOWN_HERO);
     }
+
 
     @Override
     public void saveHero(String pseudonym, Hero hero)
@@ -37,6 +40,7 @@ public class InMemoryHeroRepository implements HeroRepository
         heroesIndex.put(pseudonym, hero);
         allicaneGraph.addVertex(pseudonym);
     }
+
 
     @Override
     public void removeHero(String pseudonym)
@@ -47,11 +51,13 @@ public class InMemoryHeroRepository implements HeroRepository
         allicaneGraph.removeVertex(pseudonym);
     }
 
+
     @Override
     public Set<String> findAllHeroes()
     {
         return heroesIndex.keySet();
     }
+
 
     @Override
     public void unite(String pseudonymX, String pseudonymY)
@@ -66,6 +72,7 @@ public class InMemoryHeroRepository implements HeroRepository
         }
     }
 
+
     @Override
     public void disunite(String pseudonymX, String pseudonymY)
     {
@@ -74,12 +81,14 @@ public class InMemoryHeroRepository implements HeroRepository
         allicaneGraph.removeEdge(pseudonymY, pseudonymX);
     }
 
+
     @Override
     public Set<String> findAllies(String pseudonym)
     {
         assertExists(pseudonym);
         return allianceIndex.neighborsOf(pseudonym);
     }
+
 
     private void assertExists(String... pseudonyms)
     {
@@ -88,5 +97,13 @@ public class InMemoryHeroRepository implements HeroRepository
                 throw new HeroRepositoryException("Unknown Hero '" + pseudonym + "'");
             }
         }
+    }
+
+
+    @Override
+    public void deleteAll()
+    {
+        allicaneGraph.removeAllVertices(heroesIndex.keySet());
+        heroesIndex.clear();
     }
 }

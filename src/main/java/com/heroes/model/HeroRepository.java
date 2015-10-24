@@ -8,7 +8,7 @@ import java.util.Set;
  */
 public interface HeroRepository
 {
-    Hero UNKNOWN_HERO = new Hero("UNKNOWN_HERO");
+    Hero UNKNOWN_HERO = HeroBuilder.aHero().withName("UNKNOWN_HERO").build();
     
     void saveHero(String pseudonym, Hero hero);
 
@@ -23,4 +23,6 @@ public interface HeroRepository
     void disunite(String pseudonymX, String pseudonymY);
 
     Set<String> findAllies(String pseudonym);
+    
+    void deleteAll();
 }

@@ -9,11 +9,10 @@ services:
   - docker
   
 before_install:
- - docker --version
  - docker login --username=$U --password=$P --email=$E
+ - pip install --user codecov
 
-before_script:
-  - pip install --user codecov
+install: true 
   
 script: ./gradlew clean jacoco build dockerBuild dockerPush -i
 

@@ -8,17 +8,17 @@ import org.testng.annotations.Test;
 import static com.heroes.utils.PredefinedHeroes.BATMAN;
 import static com.heroes.utils.PredefinedHeroes.ROBIN;
 import static com.heroes.utils.PredefinedHeroes.SUPERMAN;
+import static com.heroes.utils.RestUtils.apiURI;
 import static com.heroes.utils.RestUtils.delete;
 import static com.heroes.utils.RestUtils.getBody;
 import static com.heroes.utils.RestUtils.getStatus;
 import static com.heroes.utils.RestUtils.put;
-import static com.heroes.utils.RestUtils.withBase;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.OK;
 
 /**
  *
@@ -27,17 +27,17 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 public class HeroesApiTest extends AbstractSystemTestBase
 {
     @Test
-    public void createHero()
+    public void createANewHero()
     {
         ResponseEntity response = put("/heroes/batman", BATMAN);
         assertThat(response.getStatusCode(), is(CREATED));
-        assertThat(response.getHeaders().getLocation(), is(withBase("/heroes/batman")));
+        assertThat(response.getHeaders().getLocation(), is(apiURI("/heroes/batman")));
         assertThat(getBody("/heroes/batman", Hero.class), is(BATMAN));
     }
 
 
     @Test
-    public void getListOfAllHeroes()
+    public void getListOfAllAvailableHeroes()
     {
         put("/heroes/batman", BATMAN);
         put("/heroes/robin", ROBIN);
@@ -49,7 +49,7 @@ public class HeroesApiTest extends AbstractSystemTestBase
 
 
     @Test
-    public void createAlliance()
+    public void createAllianceForSeveralHeroes()
     {
         put("/heroes/batman", BATMAN);
         put("/heroes/robin", ROBIN);
@@ -69,7 +69,7 @@ public class HeroesApiTest extends AbstractSystemTestBase
 
 
     @Test
-    public void deleteAlliance()
+    public void deleteAllianceBetweenTwoHeroes()
     {
         put("/heroes/batman", BATMAN);
         put("/heroes/robin", ROBIN);
@@ -84,14 +84,14 @@ public class HeroesApiTest extends AbstractSystemTestBase
 
 
     @Test
-    public void findUnknownHero()
+    public void tryToFindAHeroWhichDoesNotExists()
     {
         assertThat(getStatus("/heroes/unknown"), is(NOT_FOUND));
     }
 
 
     @Test
-    public void removeHero()
+    public void removeExistedAndUnexistedHeroes()
     {
         put("/heroes/batman", BATMAN);
         delete("/heroes/batman");
@@ -103,7 +103,7 @@ public class HeroesApiTest extends AbstractSystemTestBase
 
 
     @Test
-    public void checkAllianсeExists()
+    public void checkAllianсeBetweenTwoHeroesExists()
     {
         put("/heroes/batman", BATMAN);
         put("/heroes/robin", BATMAN);
@@ -113,7 +113,7 @@ public class HeroesApiTest extends AbstractSystemTestBase
 
         put("/heroes/batman/allies/robin");
         
-        assertThat(getStatus("/heroes/batman/allies/robin"), is(NO_CONTENT));
-        assertThat(getStatus("/heroes/robin/allies/batman"), is(NO_CONTENT));
+        assertThat(getStatus("/heroes/batman/allies/robin"), is(OK));
+        assertThat(getStatus("/heroes/robin/allies/batman"), is(OK));
     }
 }

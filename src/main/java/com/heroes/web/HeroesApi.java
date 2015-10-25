@@ -71,7 +71,7 @@ public class HeroesApi
             return notFound().build();
         }
 
-        return ResponseEntity.ok(hero);
+        return ok(hero);
     }
 
 
@@ -84,12 +84,12 @@ public class HeroesApi
 
 
     @RequestMapping(value = "/heroes/{pseudonymX}/allies/{pseudonymY}", method = GET)
-    public ResponseEntity checkAlliance(
+    public ResponseEntity checkAllianceExists(
             @PathVariable("pseudonymX") String pseudonymX,
             @PathVariable("pseudonymY") String pseudonymY)
     {
         if (heroRepository.findAllies(pseudonymX).contains(pseudonymY)) {
-            return noContent().build();
+            return ok(EMPTY);
         } else {
             return notFound().build();
         }
@@ -107,11 +107,11 @@ public class HeroesApi
 
 
     @RequestMapping(value = "/heroes/{pseudonymX}/allies/{pseudonymY}", method = DELETE)
-    public ResponseEntity deleteAlliance(
+    public ResponseEntity removeAlliance(
             @PathVariable("pseudonymX") String pseudonymX,
             @PathVariable("pseudonymY") String pseudonymY)
     {
         heroRepository.disunite(pseudonymX, pseudonymY);
-        return ok(EMPTY);
+        return noContent().build();
     }
 }

@@ -1,0 +1,126 @@
+{
+    "heroes": {
+        "Green Lantern": {
+            "name": "Alan Scott",
+            "firstAppearance": "1940-07-01",
+            "skills": [
+                "a ring that grants a variety of powers"
+            ],
+            "publisher": "DC"
+        },
+        "Batman": {
+            "name": "Bruce Wayne",
+            "firstAppearance": "1939-05-01",
+            "skills": [
+                "Genius-level intellect",
+                "Peak human physical and mental condition",
+                "Master martial artist and hand-to-hand combatant",
+                "Master detective",
+                "Utilizes high-tech equipment and weapons"
+            ],
+            "publisher": "DC"
+        },
+        "Wonder Woman": {
+            "name": "Princess Diana of Themyscira",
+            "firstAppearance": "1941-12-01",
+            "skills": [
+                "Superhuman strength, agility, durability, and endurance",
+                "Flight",
+                "Highly skilled hand-to-hand combatant",
+                "Utilizes indestructible bracelets, the Lasso of Truth, weaponized tiara, and magical sword"
+            ],
+            "publisher": "DC"
+        },
+        "Superman": {
+            "name": "Clark Kent",
+            "firstAppearance": "1938-04-01",
+            "skills": [
+                "Superhuman strength, speed, senses, endurance, and longevity",
+                "Flight",
+                "Heat vision",
+                "Freezing breath",
+                "Extrasensory and visual powers including X­ray vision"
+            ],
+            "publisher": "DC"
+        },
+        "Robin": {
+            "name": "Richard John Grayson",
+            "firstAppearance": "1940-04-01",
+            "skills": [
+                "Expert acrobat",
+                "Highly skilled martial artist and hand­to­hand combatant",
+                "Expert detective",
+                "Utilizes high­tech equipment, weapons, vehicles and gadgets"
+            ],
+            "publisher": "DC"
+        },
+        "Iron Man": {
+            "name": "Tony Stark",
+            "firstAppearance": "1963-03-01",
+            "skills": [
+                "Genius-level intellect",
+                "Highly proficient scientist, engineer, and businessperson",
+                "Expert hand-to-hand combat",
+                "Powered armored suit",
+                "Supersonic flight"
+            ],
+            "publisher": "MARVEL"
+        },
+        "Captain America": {
+            "name": "Steven Rogers",
+            "firstAppearance": "1941-03-01",
+            "skills": [
+                "Peak physical condition",
+                "Wields vibranium-steel alloy shield",
+                "Expert tactician and field commander"
+            ],
+            "publisher": "MARVEL"
+        },
+        "Rocket Raccoon": {
+            "name": "Some Hero",
+            "firstAppearance": "1976-07-01",
+            "skills": [
+                "Genius-level intellect",
+                "Master tactician and field commander",
+                "Expert marksman and sniper",
+                "Accomplished starship aviator",
+                "Normal-physical attributes of an Earth raccoon"
+            ],
+            "publisher": "MARVEL"
+        },
+        "Hulk": {
+            "name": "Robert Bruce Banner",
+            "firstAppearance": "1962-05-01",
+            "skills": [
+                "Genius-level intellect",
+                "Immense superhuman strength",
+                "Regenerative healing factor"
+            ],
+            "publisher": "MARVEL"
+        },
+        "Spider Man": {
+            "name": "Peter Parker",
+            "firstAppearance": "1962-08-01",
+            "skills": [
+                "Superhuman strength and agility",
+                "Ability to cling to most surfaces",
+                "Precognitive Spider-sense",
+                "Utilizes web-shooters to shoot strong spider-web strings from wrists"
+            ],
+            "publisher": "MARVEL"
+        }
+    },
+    "alliances": {
+        "Robin": ["Superman", "Batman"],
+        "Batman": ["Superman", "Robin", "Green Lantern"],
+        "Superman": ["Wonder Woman", "Batman"],
+        "Green Lantern": ["Wonder Woman", "Robin"],
+        "Wonder Woman": ["Superman", "Robin"],
+        
+        "Iron Man": ["Captain America", "Hulk"],
+        "Captain America": ["Iron Man", "Hulk"],
+        "Rocket Raccoon": [],
+        "Hulk": ["Spider Man", "Captain America"],
+        "Spider Man": ["Rocket Raccoon", "Captain America", "Hulk"]
+    }
+}
